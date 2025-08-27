@@ -57,3 +57,28 @@ SELECT * FROM bookings ORDER BY start_date ASC;
 
 -- сортировка пользователей по дате создания
 SELECT * FROM users ORDER BY created_at DESC;
+
+-- просмотр всех избранных объектов для пользователя с user_id = 1
+SELECT 
+    uf.user_id,
+    p.property_id,
+    p.name,
+    p.address,
+    p.price_per_night
+FROM user_favorites uf
+JOIN properties p ON uf.property_id = p.property_id
+WHERE uf.user_id = 1;
+
+-- просмотр всех пользователей, которые добавили объект с property_id = 1 в избранное
+SELECT
+    uf.property_id,
+    u.user_id,
+    u.first_name,
+    u.last_name,
+    u.email
+FROM user_favorites uf
+JOIN users u ON uf.user_id = u.user_id
+WHERE uf.property_id = 1;
+
+-- вывести все связи user_favorites для проверки
+SELECT * FROM user_favorites;

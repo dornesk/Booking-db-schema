@@ -28,3 +28,9 @@ VALUES
 (1, 2, 5, 'highly recommend'),
 (2, 1, 4, 'great location'),
 (3, 3, 3, 'was okay');
+
+INSERT INTO user_favorites (user_id, property_id)
+VALUES
+(1, 1),
+(1, 3),
+(2, 2);

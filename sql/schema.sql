@@ -45,7 +45,7 @@ CREATE TABLE payments ( -- платежи: каждое бронирование
         REFERENCES bookings(booking_id) ON DELETE CASCADE
 );
 
-CREATE TABLE reviews ( --отзывы: -- many-to-many через таблицу отзывов: пользователь ↔ объект
+CREATE TABLE reviews ( --отзывы
     review_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     property_id INT NOT NULL,
@@ -57,4 +57,13 @@ CREATE TABLE reviews ( --отзывы: -- many-to-many через таблицу
     CONSTRAINT fk_review_property FOREIGN KEY (property_id)
         REFERENCES properties(property_id) ON DELETE CASCADE,
     CONSTRAINT uq_review UNIQUE(user_id, property_id) -- Один отзыв от пользователя на один объект
+);
+
+CREATE TABLE user_favorites ( --связка many-to-many, не входящая в 5 сущностей
+    user_id INT NOT NULL,
+    property_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (user_id, property_id),
+    CONSTRAINT fk_fav_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_fav_property FOREIGN KEY (property_id) REFERENCES properties(property_id) ON DELETE CASCADE
 );
